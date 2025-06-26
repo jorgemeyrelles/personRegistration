@@ -12,4 +12,6 @@ public interface PersonRepository extends JpaRepository<Person, UUID> {
 	boolean existsByCpf(String cpf);
 
 	Optional<Person> findByCpf(String cpf);
+	
+	
 }
