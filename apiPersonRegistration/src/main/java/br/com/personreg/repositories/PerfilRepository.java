@@ -1,5 +1,6 @@
 package br.com.personreg.repositories;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,10 @@ public interface PerfilRepository extends JpaRepository<Perfil, UUID> {
 	 */
 	@Query("SELECT p FROM Perfil p WHERE p.nome = :nome")
 	Perfil findByNome(@Param("nome") String nome);
+
+	/*
+	 * Consulta para buscar todos os perfis
+	 */
+	@Query("SELECT p FROM Perfil p")
+	List<Perfil> findAllPerfis();
 }

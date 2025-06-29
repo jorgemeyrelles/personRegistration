@@ -1,5 +1,7 @@
 package br.com.personreg.dtos;
 
+import java.util.UUID;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -20,4 +22,7 @@ public class CriarUsuarioRequest {
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$", message = "Informe a senha com letras minúsculas, maiúsculas, números, símbolos e pelo menos 8 caracteres.")
 	@NotEmpty(message = "Por favor, informe a senha do usuário.")
 	private String senha;
+	
+	@NotEmpty(message = "Por favor, informe o perfil do usuário.")
+	private String perfilId;
 }

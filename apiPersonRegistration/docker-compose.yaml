@@ -23,23 +23,6 @@ services:
       timeout: 5s
       retries: 5
 
-  api_person_registration:
-    build:
-      context: ./apiPersonRegistration
-    container_name: api_person_registration
-    restart: always
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bd_apipersonregistration
-      SPRING_DATASOURCE_USERNAME: admin
-      SPRING_DATASOURCE_PASSWORD: root
-    ports:
-      - "8081:8080" # Porta 8081 no host mapeada para 8080 no container
-    depends_on:
-      postgres:
-        condition: service_healthy
-    networks:
-      - projeto-person-registration
-
   mongodb:
     image: mongo:latest
     container_name: mongodb-container
@@ -59,15 +42,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    networks:
-      - projeto-person-registration
-  mailhog:
-    image: mailhog/mailhog
-    container_name: mailhog_container
-    ports:
-      - "8025:8025"      # Web UI
-      - "1025:1025"      # SMTP
-    restart: always
     networks:
       - projeto-person-registration
 
