@@ -71,15 +71,28 @@ services:
     networks:
       - projeto-person-registration
 
-  #web-produtos:
-  #  build:
-  #    context: ./webProdutos
-  #  container_name: web_produtos
-  #  restart: always
-  #  ports:
-  #    - "4200:4200" # Porta 4200 no host mapeada para 4200 no container
-  #  networks:
-  #    - projeto-person-registration
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    networks:
+      - projeto-person-registration
+
+  web-person-registration:
+    build:
+      context: ./webPersonRegistration
+    container_name: web_person_registration
+    restart: always
+    ports:
+      - "3030:3030"
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=http://api_person_registration:8080
+    depends_on:
+      - api_person_registration
+    networks:
+      - projeto-person-registration
 
 volumes:
   postgres_data:

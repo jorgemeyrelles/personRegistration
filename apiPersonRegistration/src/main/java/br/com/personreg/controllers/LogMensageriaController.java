@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.personreg.collections.LogMensageria;
 import br.com.personreg.services.LogMensageriaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-@RestController(value = "Log Mensageria")
+@Tag(name = "Log Mensageria", description = "Operações de consulta de logs")
+@RestController
 @RequestMapping("/api/log-mensageria")
 public class LogMensageriaController {
 

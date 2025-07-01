@@ -18,9 +18,11 @@ import br.com.personreg.dtos.CriarPerfilResponse;
 import br.com.personreg.dtos.ObterDadosPerfilResponse;
 import br.com.personreg.entities.Perfil;
 import br.com.personreg.services.PerfilService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@RestController(value = "Perfil")
+@Tag(name = "Perfil", description = "Operações de cadastro e consulta de perfis")
+@RestController
 @RequestMapping("/api/perfil")
 public class PerfilController {
 

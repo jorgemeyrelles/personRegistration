@@ -71,7 +71,7 @@ public class UsuarioService {
 
 		// escrever uma mensagem de boas vindas para o usuário
 		MensagemUsuarioResponse mensagem = new MensagemUsuarioResponse();
-		mensagem.setEmailDestinatario(usuario.getEmail());
+		mensagem.setEmailDestinatario(request.getEmail());
 		mensagem.setAssunto("Confirmação de registro");
 		mensagem.setTexto("Olá, " + usuario.getNome()
 				+ ". Parabéns, seu registro foi realizado com sucesso!");
@@ -147,15 +147,15 @@ public class UsuarioService {
 	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios(String token)
 			throws Exception {
 		// extrair o email do usuário contido no TOKEN
-		String email = jwtTokenComponent.getEmailFromToken(token);
+		// String email = jwtTokenComponent.getEmailFromToken(token);
 
 		// consultando os dados do usuário no banco através do email
-		Usuario usuarioCheck = usuarioRepository.findByEmail(email);
+		// Usuario usuarioCheck = usuarioRepository.findByEmail(email);
 
 		// verificando se o usuário não foi encontrado
-		if (usuarioCheck == null) {
-			throw new AcessoNegadoException();
-		}
+		//if (usuarioCheck == null) {
+		//	throw new AcessoNegadoException();
+		//}
 
 		List<Usuario> usuarios = usuarioRepository.findAll();
 		List<ObterDadosUsuarioResponse> responses = new ArrayList<>();

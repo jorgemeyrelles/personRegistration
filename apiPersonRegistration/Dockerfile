@@ -8,6 +8,7 @@ RUN apt-get update && \
     tar -xzf apache-maven-3.9.7-bin.tar.gz -C /opt && \
     ln -s /opt/apache-maven-3.9.7/bin/mvn /usr/bin/mvn && \
     rm apache-maven-3.9.7-bin.tar.gz && \
+    apt-get install -y --no-install-recommends netcat-openbsd redis-tools && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

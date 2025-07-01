@@ -18,10 +18,12 @@ import br.com.personreg.dtos.CriarUsuarioRequest;
 import br.com.personreg.dtos.CriarUsuarioResponse;
 import br.com.personreg.dtos.ObterDadosUsuarioResponse;
 import br.com.personreg.services.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
-@RestController(value = "Usuarios")
+@Tag(name = "Usuários", description = "Operações de cadastro e consulta de usuários")
+@RestController
 @RequestMapping("/api/usuario")
 public class UsuarioController {
 
