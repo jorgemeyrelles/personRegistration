@@ -98,9 +98,9 @@ O **Sistema de Registro de Pessoas** é uma aplicação full stack moderna e esc
 │  └─────────────┘  └─────────────┘  └─────────────┘              │
 │                                                                 │
 │  ┌─────────────────────────────────────────────────────────────┐│
-│  │              COMPONENTES & SERVIÇOS                        ││
-│  │ • NavBar • GerenciarPessoas • GerenciarLogs • Modals       ││
-│  │ • API Services • Types • Utils • Routing                   ││
+│  │              COMPONENTES & SERVIÇOS                         ││
+│  │ • NavBar • GerenciarPessoas • GerenciarLogs • Modals        ││
+│  │ • API Services • Types • Utils • Routing                    ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
                                     │ HTTP/REST API
@@ -121,15 +121,15 @@ O **Sistema de Registro de Pessoas** é uma aplicação full stack moderna e esc
 │  └─────────────┘  └─────────────┘  └─────────────┘              │
 │                                                                 │
 │  ┌─────────────────────────────────────────────────────────────┐│
-│  │  Security • JWT • Validations • Exception Handling         ││
-│  │  RabbitMQ Messaging • Email Service • Cache                ││
+│  │  Security • JWT • Validations • Exception Handling          ││
+│  │  RabbitMQ Messaging • Email Service • Cache                 ││
 │  └─────────────────────────────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────┘
-                            │         │         │
-                    ┌───────▼─┐   ┌───▼───┐   ┌─▼────┐
-                    │PostgreSQL│   │MongoDB│   │Redis │
+                            │          │         │
+                    ┌───────▼──┐   ┌───▼───┐   ┌─▼─────┐
+                    │PostgreSQL│   │MongoDB│   │Redis  │
                     │(Main DB) │   │(Logs) │   │(Cache)│
-                    └─────────┘   └───────┘   └──────┘
+                    └──────────┘   └───────┘   └───────┘
 ```
 
 ### 🔄 Fluxo de Dados
@@ -213,17 +213,17 @@ O **Sistema de Registro de Pessoas** é uma aplicação full stack moderna e esc
 
 ```bash
 # 1. Clone o repositório
-git clone <repository-url>
+git clone git@github.com:jorgemeyrelles/personRegistration.git
 cd personProject/apiPersonRegistration
 
 # 2. Configure as variáveis de ambiente
 cp src/main/resources/application.properties.example src/main/resources/application.properties
 
 # 3. Ajuste as configurações de banco no application.properties
-# spring.datasource.url=jdbc:postgresql://localhost:5432/bd_apipersonregistration
-# spring.data.mongodb.uri=mongodb://localhost:27017/log_apiusuarios
-# spring.rabbitmq.host=localhost
-# spring.data.redis.host=localhost
+spring.datasource.url=jdbc:postgresql://localhost:5432/bd_apipersonregistration
+spring.data.mongodb.uri=mongodb://localhost:27017/log_apiusuarios
+spring.rabbitmq.host=localhost
+spring.data.redis.host=localhost
 
 # 4. Instale as dependências e compile
 mvn clean install
@@ -231,8 +231,8 @@ mvn clean install
 # 5. Execute a aplicação
 mvn spring-boot:run
 
-# API estará disponível em: http://localhost:8081
-# Swagger UI: http://localhost:8081/swagger-ui.html
+API estará disponível em: http://localhost:8081
+Swagger UI: http://localhost:8081/swagger-ui.html
 ```
 
 #### 🎨 Frontend (React)
@@ -262,7 +262,7 @@ npm run dev
 
 ```bash
 # 1. Clone o repositório
-git clone <repository-url>
+git clone git@github.com:jorgemeyrelles/personRegistration.git
 cd personProject
 
 # 2. Execute todo o ambiente
@@ -684,7 +684,7 @@ chore(docker): atualizar versão do PostgreSQL
 ### 🚀 Como Contribuir
 
 1. **Fork** o projeto
-2. **Clone** seu fork: `git clone <your-fork-url>`
+2. **Clone** seu fork: `git clone git@github.com:jorgemeyrelles/personRegistration.git`
 3. **Crie uma branch** para sua feature: `git checkout -b feature/nova-funcionalidade`
 4. **Commit** suas mudanças: `git commit -m 'feat: adicionar nova funcionalidade'`
 5. **Push** para a branch: `git push origin feature/nova-funcionalidade`
