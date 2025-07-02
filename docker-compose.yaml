@@ -24,8 +24,9 @@ services:
       retries: 5
 
   api_person_registration:
-    build:
-      context: ./apiPersonRegistration
+    image: jorgemeyrelles/api-person-registration:latest
+    #build:
+    #  context: ./apiPersonRegistration
     container_name: api_person_registration
     restart: always
     environment:
@@ -80,15 +81,16 @@ services:
       - projeto-person-registration
 
   web-person-registration:
-    build:
-      context: ./webPersonRegistration
+    image: jorgemeyrelles/web-person-registration:latest
+    #build:
+    #  context: ./webPersonRegistration
     container_name: web_person_registration
     restart: always
     ports:
       - "3030:3030"
     environment:
       - NODE_ENV=production
-      - VITE_API_BASE_URL=http://api_person_registration:8080
+      - VITE_API_BASE_URL=http://localhost:8081
     depends_on:
       - api_person_registration
     networks:

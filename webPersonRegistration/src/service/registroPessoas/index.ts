@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "../../config/api";
+
 import type {
   RegistroPessoaRequest,
   RegistroPessoaUpdateRequest,
@@ -6,8 +8,8 @@ import type {
   CPFExisteResponse,
 } from "../../types/registroPessoasTypes";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://api_person_registration:8080";
+// const API_BASE_URL =
+//   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
 
 // Serviço para criar registro de pessoa
 export const criarRegistroPessoa = async (

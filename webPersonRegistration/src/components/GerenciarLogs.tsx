@@ -198,7 +198,12 @@ const GerenciarLogs: React.FC = () => {
             <TimelineIcon />
           </Avatar>
           <Box>
-            <Typography variant="h4" component="h1" gutterBottom>
+            <Typography
+              color="text.primary"
+              variant="h4"
+              component="h1"
+              gutterBottom
+            >
               Logs do Sistema
             </Typography>
             <Typography variant="body1" color="text.secondary">
