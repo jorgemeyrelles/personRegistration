@@ -290,9 +290,23 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
     try {
       // Preparar dados para envio, garantindo que usuarioId não seja undefined
       const dadosParaEnvio: RegistroPessoaRequest = {
-        ...formData,
+        nome: formData.nome,
+        telefone: formData.telefone,
         cpf: formData.cpf.replace(/\D/g, ""),
+        cep: formData.cep,
+        bairro: formData.bairro,
+        nomeMunicipio: formData.nomeMunicipio,
+        nomeEstado: formData.nomeEstado,
         usuarioId: "1e2b1cec-1b92-4492-815d-07f2d15c9fcf", // Usar um ID padrão se necessário
+        // Campos opcionais - apenas incluir se tiverem valor
+        ...(formData.numero &&
+          formData.numero.trim() && { numero: formData.numero }),
+        ...(formData.complemento &&
+          formData.complemento.trim() && { complemento: formData.complemento }),
+        ...(formData.latitude &&
+          formData.latitude.trim() && { latitude: formData.latitude }),
+        ...(formData.longitude &&
+          formData.longitude.trim() && { longitude: formData.longitude }),
       };
       console.log(dadosParaEnvio);
 

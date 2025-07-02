@@ -18,14 +18,14 @@ export interface RegistroPessoaRequest {
   nome: string;
   telefone: string;
   cpf: string;
-  numero: string;
-  complemento: string;
+  numero?: string; // Opcional
+  complemento?: string; // Opcional
   cep: string;
   bairro: string;
   nomeMunicipio: string;
   nomeEstado: string;
-  latitude: string;
-  longitude: string;
+  latitude?: string; // Opcional
+  longitude?: string; // Opcional
   usuarioId: string;
 }
 
@@ -35,15 +35,15 @@ export interface RegistroPessoaResponse {
   nome: string;
   telefone: string;
   cpf: string;
-  numero: string;
-  complemento: string;
+  numero?: string; // Opcional
+  complemento?: string; // Opcional
   cep: string;
   bairro: string;
   nomeMunicipio: string;
   nomeEstado: string;
   usuarioId: string;
-  latitude: string;
-  longitude: string;
+  latitude?: string; // Opcional
+  longitude?: string; // Opcional
   usuario: UsuarioRegistro;
 }
 
@@ -74,14 +74,14 @@ export interface RegistroPessoaFormData {
   nome: string;
   telefone: string;
   cpf: string;
-  numero: string;
-  complemento: string;
+  numero?: string; // Opcional
+  complemento?: string; // Opcional
   cep: string;
   bairro: string;
   nomeMunicipio: string;
   nomeEstado: string;
-  latitude: string;
-  longitude: string;
+  latitude?: string; // Opcional
+  longitude?: string; // Opcional
   usuarioId?: string; // Pode ser opcional no formulário
 }
 

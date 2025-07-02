@@ -37,7 +37,7 @@ public class RegistroPessoa {
 	private String cpf;
 
 	// Endereço
-	@Column(nullable = false, length = 10)
+	@Column(length = 10)
 	private String numero;
 
 	@Column(length = 50)
@@ -55,10 +55,10 @@ public class RegistroPessoa {
 	@Column(name = "estado", nullable = false, length = 60)
 	private String nomeEstado;
 	
-	@Column(name = "lat", nullable = false, length = 60)
+	@Column(name = "lat", length = 20)
 	private String latitude;
 	
-	@Column(name = "longitude", nullable = false, length = 60)
+	@Column(name = "longitude", length = 20)
 	private String longitude;
 
 	// Usuário que realizou o cadastro
