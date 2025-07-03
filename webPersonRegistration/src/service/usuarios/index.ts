@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../config/api";
+// import { API_BASE_URL } from "../../config/api";
 
 import type {
   Usuario,
@@ -6,8 +6,8 @@ import type {
   UsuarioResponse,
 } from "../../types/usuario";
 
-// const API_BASE_URL =
-//   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+ const API_BASE_URL =
+   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
 
 // Serviço para criar usuário
 export const criarUsuario = async (
