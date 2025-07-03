@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../../config/api";
+// import { API_BASE_URL } from "../../config/api";
 
 import type {
   PerfilCriar,
@@ -6,8 +6,7 @@ import type {
   PerfilResponse,
 } from "../../types/perfil";
 
-// const API_BASE_URL =
-//   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+ const API_BASE_URL = "http://localhost:8081";
 
 // Serviço para criar perfil
 export const criarPerfil = async (
