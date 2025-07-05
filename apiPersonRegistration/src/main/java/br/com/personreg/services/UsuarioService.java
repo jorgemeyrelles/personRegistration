@@ -144,7 +144,7 @@ public class UsuarioService {
 		return response;
 	}
 
-	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios(String token)
+	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios()
 			throws Exception {
 		// extrair o email do usuário contido no TOKEN
 		// String email = jwtTokenComponent.getEmailFromToken(token);

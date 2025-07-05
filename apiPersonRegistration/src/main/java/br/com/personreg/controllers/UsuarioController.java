@@ -66,12 +66,12 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/buscar-todos")
-	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios(
-			HttpServletRequest request) throws Exception {
+	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios() throws Exception {
 		// Capturar / extrair o TOKEN JWT enviado na requisição
-		String token = request.getHeader("Authorization").replace("Bearer", "")
-				.trim();
-		return usuarioService.buscarTodosUsuarios(token);
+		// HttpServletRequest request
+		// String token = request.getHeader("Authorization").replace("Bearer", "")
+		// 		.trim();
+		return usuarioService.buscarTodosUsuarios();
 	}
 
 	@DeleteMapping("/deletar/{id}")

@@ -14,8 +14,17 @@ public class EmailComponent {
 	/*
 	 * Ler o valor da conta de email que será utilizada para enviar as mensagens
 	 */
+	@Value("${spring.mail.host}")
+	private String host;
+
+	@Value("${spring.mail.port}")
+	private int port;
+
 	@Value("${spring.mail.username}")
-	private String userName;
+	private String username;
+
+	@Value("${spring.mail.password}")
+	private String password;
 
 	/*
 	 * Injeção de dependência para usarmos a biblioteca do Spring Mail
@@ -32,12 +41,24 @@ public class EmailComponent {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
-		helper.setFrom(userName); // remetente do email
+		helper.setFrom(username); // remetente do email
 		helper.setTo(to); // destinatário do email
 		helper.setSubject(subject); // assunto do email
-		helper.setText(body); // conteúdo do email
+		helper.setText(body, true); // conteúdo do email
 
 		// enviando o email
+		javaMailSender.send(mimeMessage);
+	}
+
+	public void sendHtmlMail(String to, String subject, String htmlBody) throws Exception {
+		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+		helper.setFrom(username);
+		helper.setTo(to);
+		helper.setSubject(subject);
+		helper.setText(htmlBody, true); // true indica que é HTML
+
 		javaMailSender.send(mimeMessage);
 	}
 }

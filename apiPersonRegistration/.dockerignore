@@ -1,0 +1,30 @@
+# Ignorar diretórios de build e cache
+target/
+.mvn/
+*.log
+
+# Ignorar arquivos IDE
+.vscode/
+.idea/
+*.iml
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar documentação e README local
+README.md
+docs/
+
+# Ignorar testes (já que não vamos rodá-los no build)
+src/test/
+
+# Ignorar arquivos de configuração local
+.env
+.env.local
+.env.development
+.env.production
+
+# Ignorar arquivos Git
+.git/
+.gitignore

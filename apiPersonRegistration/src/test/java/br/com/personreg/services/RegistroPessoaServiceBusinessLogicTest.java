@@ -2,7 +2,6 @@ package br.com.personreg.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -62,8 +61,8 @@ class RegistroPessoaServiceBusinessLogicTest {
         requestCompleto.setBairro("Vila Madalena");
         requestCompleto.setNomeMunicipio("São Paulo");
         requestCompleto.setNomeEstado("SP");
-        requestCompleto.setLatitude(new BigDecimal("-23.5505"));
-        requestCompleto.setLongitude(new BigDecimal("-46.6333"));
+        requestCompleto.setLatitude("-23.5505");
+        requestCompleto.setLongitude("-46.6333");
         requestCompleto.setUsuarioId(usuario.getId().toString());
 
         // Setup request mínimo (apenas campos obrigatórios)
@@ -85,8 +84,8 @@ class RegistroPessoaServiceBusinessLogicTest {
         registroPessoa.setBairro("Savassi");
         registroPessoa.setNomeMunicipio("Belo Horizonte");
         registroPessoa.setNomeEstado("MG");
-        registroPessoa.setLatitude(new BigDecimal("-19.9167"));
-        registroPessoa.setLongitude(new BigDecimal("-43.9345"));
+        registroPessoa.setLatitude("-19.9167");
+        registroPessoa.setLongitude("-43.9345");
         registroPessoa.setUsuario(usuario);
     }
 
@@ -121,8 +120,8 @@ class RegistroPessoaServiceBusinessLogicTest {
         assertEquals("Vila Madalena", novoRegistro.getBairro());
         assertEquals("São Paulo", novoRegistro.getNomeMunicipio());
         assertEquals("SP", novoRegistro.getNomeEstado());
-        assertEquals(new BigDecimal("-23.5505"), novoRegistro.getLatitude());
-        assertEquals(new BigDecimal("-46.6333"), novoRegistro.getLongitude());
+        assertEquals("-23.5505", novoRegistro.getLatitude());
+        assertEquals("-46.6333", novoRegistro.getLongitude());
         assertEquals(usuario, novoRegistro.getUsuario());
     }
 
@@ -202,8 +201,8 @@ class RegistroPessoaServiceBusinessLogicTest {
         assertEquals("Savassi", response.getBairro());
         assertEquals("Belo Horizonte", response.getNomeMunicipio());
         assertEquals("MG", response.getNomeEstado());
-        assertEquals(new BigDecimal("-19.9167"), response.getLatitude());
-        assertEquals(new BigDecimal("-43.9345"), response.getLongitude());
+        assertEquals("-19.9167", response.getLatitude());
+        assertEquals("-43.9345", response.getLongitude());
         
         // Validar dados do usuário
         assertNotNull(response.getUsuario());
@@ -350,8 +349,8 @@ class RegistroPessoaServiceBusinessLogicTest {
         // Given
         CriarRegistroPessoaRequest requestComCoordenadas = new CriarRegistroPessoaRequest();
         requestComCoordenadas.setNome("Teste Coordenadas");
-        requestComCoordenadas.setLatitude(new BigDecimal("-23.5505"));
-        requestComCoordenadas.setLongitude(new BigDecimal("-46.6333"));
+        requestComCoordenadas.setLatitude("-23.5505");
+        requestComCoordenadas.setLongitude("-46.6333");
 
         // When
         RegistroPessoa registro = new RegistroPessoa();
@@ -364,10 +363,13 @@ class RegistroPessoaServiceBusinessLogicTest {
         assertNotNull(registro.getLongitude());
         
         // Validar se as coordenadas estão dentro de uma faixa válida para São Paulo
-        assertTrue(registro.getLatitude().compareTo(new BigDecimal("-25")) > 0); // Maior que -25
-        assertTrue(registro.getLatitude().compareTo(new BigDecimal("-22")) < 0); // Menor que -22
-        assertTrue(registro.getLongitude().compareTo(new BigDecimal("-48")) > 0); // Maior que -48
-        assertTrue(registro.getLongitude().compareTo(new BigDecimal("-45")) < 0); // Menor que -45
+        Double latitude = Double.parseDouble(registro.getLatitude());
+        Double longitude = Double.parseDouble(registro.getLongitude());
+        
+        assertTrue(latitude > -25.0); // Maior que -25
+        assertTrue(latitude < -22.0); // Menor que -22
+        assertTrue(longitude > -48.0); // Maior que -48
+        assertTrue(longitude < -45.0); // Menor que -45
     }
 
     @Test

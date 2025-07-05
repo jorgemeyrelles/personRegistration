@@ -297,7 +297,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
         bairro: formData.bairro,
         nomeMunicipio: formData.nomeMunicipio,
         nomeEstado: formData.nomeEstado,
-        usuarioId: "1e2b1cec-1b92-4492-815d-07f2d15c9fcf", // Usar um ID padrão se necessário
+        usuarioId: "2d0a8c61-f487-49af-aee4-5a67b5f0d102", // Usar um ID padrão se necessário
         // Campos opcionais - apenas incluir se tiverem valor
         ...(formData.numero &&
           formData.numero.trim() && { numero: formData.numero }),

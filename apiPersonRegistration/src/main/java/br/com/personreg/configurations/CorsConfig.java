@@ -16,9 +16,9 @@ public class CorsConfig implements WebMvcConfigurer {
 				.allowedOrigins("http://localhost:4200",
 						"https://localhost:8081",
 						"http://localhost:5173/",
-	                    "http://localhost:3030",
-	                    "http://web-person-registration-dev:5173",
-	                    "http://web-person-registration:3030")
+						"http://localhost:3031",
+						"http://web-person-registration-dev:5173",
+						"http://web-person-registration:3031")
 				.allowedMethods("POST", "PUT", "DELETE", "GET")
 				.allowedHeaders("*");
 	}

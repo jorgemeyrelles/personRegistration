@@ -2,7 +2,6 @@ package br.com.personreg.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -172,11 +171,11 @@ class RegistroPessoaServiceDataIntegrityTest {
         assertEquals("São Paulo", response.getNomeMunicipio());
         assertEquals("SP", response.getNomeEstado());
         
-        // Validar coordenadas (convertidas de double para BigDecimal)
+        // Validar coordenadas (convertidas de double para String)
         assertNotNull(response.getLatitude());
         assertNotNull(response.getLongitude());
-        assertEquals(0, response.getLatitude().compareTo(new BigDecimal("-23.5505")));
-        assertEquals(0, response.getLongitude().compareTo(new BigDecimal("-46.6333")));
+        assertEquals("-23.5505", response.getLatitude());
+        assertEquals("-46.6333", response.getLongitude());
     }
 
     @Test
@@ -316,13 +315,13 @@ class RegistroPessoaServiceDataIntegrityTest {
         // Given - valores extremos de latitude e longitude
         CriarRegistroPessoaRequest requestValoresExtremos = new CriarRegistroPessoaRequest();
         requestValoresExtremos.setNome("Teste Coordenadas Extremas");
-        requestValoresExtremos.setLatitude(new BigDecimal("90.0"));     // Polo Norte
-        requestValoresExtremos.setLongitude(new BigDecimal("-180.0"));  // Limite oeste
+        requestValoresExtremos.setLatitude("90.0");     // Polo Norte
+        requestValoresExtremos.setLongitude("-180.0");  // Limite oeste
 
         CriarRegistroPessoaRequest requestValoresInvalidos = new CriarRegistroPessoaRequest();
         requestValoresInvalidos.setNome("Teste Coordenadas Inválidas");
-        requestValoresInvalidos.setLatitude(new BigDecimal("91.0"));     // Inválido
-        requestValoresInvalidos.setLongitude(new BigDecimal("181.0"));   // Inválido
+        requestValoresInvalidos.setLatitude("91.0");     // Inválido
+        requestValoresInvalidos.setLongitude("181.0");   // Inválido
 
         // When
         RegistroPessoa registroExtremos = new RegistroPessoa();
@@ -336,18 +335,22 @@ class RegistroPessoaServiceDataIntegrityTest {
         registroInvalidos.setLongitude(requestValoresInvalidos.getLongitude());
 
         // Then - valores extremos mas válidos
-        assertEquals(new BigDecimal("90.0"), registroExtremos.getLatitude());
-        assertEquals(new BigDecimal("-180.0"), registroExtremos.getLongitude());
+        assertEquals("90.0", registroExtremos.getLatitude());
+        assertEquals("-180.0", registroExtremos.getLongitude());
         
-        // Validação de limites geográficos
-        assertTrue(registroExtremos.getLatitude().compareTo(new BigDecimal("-90")) >= 0);
-        assertTrue(registroExtremos.getLatitude().compareTo(new BigDecimal("90")) <= 0);
-        assertTrue(registroExtremos.getLongitude().compareTo(new BigDecimal("-180")) >= 0);
-        assertTrue(registroExtremos.getLongitude().compareTo(new BigDecimal("180")) <= 0);
+        // Validação de limites geográficos (conversão para Double para comparação)
+        Double latExtremos = Double.parseDouble(registroExtremos.getLatitude());
+        Double lonExtremos = Double.parseDouble(registroExtremos.getLongitude());
+        assertTrue(latExtremos >= -90.0);
+        assertTrue(latExtremos <= 90.0);
+        assertTrue(lonExtremos >= -180.0);
+        assertTrue(lonExtremos <= 180.0);
 
         // Valores inválidos (fora dos limites geográficos)
-        assertTrue(registroInvalidos.getLatitude().compareTo(new BigDecimal("90")) > 0);
-        assertTrue(registroInvalidos.getLongitude().compareTo(new BigDecimal("180")) > 0);
+        Double latInvalidos = Double.parseDouble(registroInvalidos.getLatitude());
+        Double lonInvalidos = Double.parseDouble(registroInvalidos.getLongitude());
+        assertTrue(latInvalidos > 90.0);
+        assertTrue(lonInvalidos > 180.0);
     }
 
     @Test
@@ -473,13 +476,13 @@ class RegistroPessoaServiceDataIntegrityTest {
     }
 
     @Test
-    @DisplayName("Deve validar comportamento com BigDecimal nulos e zeros")
-    void deveValidarComportamentoComBigDecimalNulosEZeros() {
+    @DisplayName("Deve validar comportamento com coordenadas nulas e zeros")
+    void deveValidarComportamentoComCoordenadasNulasEZeros() {
         // Given
         CriarRegistroPessoaRequest requestComZeros = new CriarRegistroPessoaRequest();
         requestComZeros.setNome("Teste BigDecimal");
-        requestComZeros.setLatitude(new BigDecimal("0.0"));
-        requestComZeros.setLongitude(new BigDecimal("0.0"));
+        requestComZeros.setLatitude("0.0");
+        requestComZeros.setLongitude("0.0");
 
         CriarRegistroPessoaRequest requestComNulos = new CriarRegistroPessoaRequest();
         requestComNulos.setNome("Teste BigDecimal Nulos");
@@ -500,8 +503,8 @@ class RegistroPessoaServiceDataIntegrityTest {
         // Then
         assertNotNull(registroComZeros.getLatitude());
         assertNotNull(registroComZeros.getLongitude());
-        assertEquals(0, registroComZeros.getLatitude().compareTo(BigDecimal.ZERO));
-        assertEquals(0, registroComZeros.getLongitude().compareTo(BigDecimal.ZERO));
+        assertEquals("0.0", registroComZeros.getLatitude());
+        assertEquals("0.0", registroComZeros.getLongitude());
 
         assertNull(registroComNulos.getLatitude());
         assertNull(registroComNulos.getLongitude());

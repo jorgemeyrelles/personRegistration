@@ -18,8 +18,11 @@ WORKDIR /app
 # Copiar os arquivos do projeto para o container
 COPY . .
 
+# Compilar a aplicação sem executar testes
+RUN mvn clean package -DskipTests
+
 # Expor a porta padrão do Spring Boot
 EXPOSE 8080
 
-# Comando para executar a aplicação
+# Comando para executar a aplicação (pula os testes)
 CMD ["mvn", "spring-boot:run"]

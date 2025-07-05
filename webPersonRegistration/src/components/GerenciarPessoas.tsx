@@ -206,7 +206,12 @@ const GerenciarPessoas: React.FC = () => {
           spacing={2}
         >
           <Box>
-            <Typography color="text.primary" variant="h4" component="h1" gutterBottom>
+            <Typography
+              color="text.primary"
+              variant="h4"
+              component="h1"
+              gutterBottom
+            >
               Gerenciar Pessoas
             </Typography>
             <Typography variant="body1" color="text.secondary">
