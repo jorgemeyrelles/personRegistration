@@ -717,7 +717,7 @@ POST /api/usuario/criar               # Criar novo usuário
 POST /api/usuario/autenticar          # Login (retorna JWT + perfil)
 GET  /api/usuario/obter-dados/{id}    # Obter dados do usuário
 GET  /api/usuario                     # Listar todos os usuários (ADMIN)
-PATCH /api/usuario/senha              # Atualizar senha do usuário
+PATCH /api/usuario/atualizar-senha    # Atualizar senha do usuário
 
 # Gestão de Perfis
 GET  /api/perfil                      # Listar perfis disponíveis
