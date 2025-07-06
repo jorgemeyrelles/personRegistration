@@ -801,7 +801,7 @@ GET /api/log-mensageria               # Logs de mensageria RabbitMQ
 - ✅ Acesso a logs e métricas do sistema
 - ✅ Gerenciamento de usuários
 
-#### 👤 Perfil USER
+#### 👤 Perfil DEFAULT
 
 - ✅ Visualiza **apenas pessoas cadastradas por ele**
 - ✅ Pode criar/editar/deletar apenas próprios registros
