@@ -621,18 +621,18 @@ docker-compose logs -f api_person_registration
 | 🍃 **MongoDB**    | `localhost:27018` (Docker) / `localhost:27017` (Local) | -           | log_apiusuarios          |
 | ⚡ **Redis**      | `localhost:6379`                                       | -           | Cache                    |
 
-#### 👤 Usuários de Teste
+#### 👤 Usuários de Teste (Implementado pelo próprio dev)
 
 **Admin User:**
 
 - **Email:** `admin@personreg.com`
-- **Senha:** `admin123`
+- **Senha:** `Admin@123`
 - **Perfil:** `ADMIN` (vê todos os registros)
 
 **User Regular:**
 
 - **Email:** `user@personreg.com`
-- **Senha:** `user123`
+- **Senha:** `User@123`
 - **Perfil:** `DEFAULT` (vê apenas próprios registros)
 
 > **📝 Nota:** Estes usuários são criados automaticamente na inicialização da aplicação
