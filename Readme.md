@@ -1186,7 +1186,7 @@ chore(docker): atualizar versão do PostgreSQL
 - **Verificação de tokens** em cada navegação
 - **Experiência fluida** de autenticação
 
-## 🚀 Roadmap e *Futuras Features*
+## 🚀 Roadmap e _Futuras Features_
 
 ### 🎨 Frontend (React + TypeScript)
 
@@ -1286,7 +1286,7 @@ chore(docker): atualizar versão do PostgreSQL
 - 🚨 **Alerting**: Sistema de alertas proativos
 - 📈 **Health Checks**: Monitoramento de saúde dos serviços
 
-### 📋 Priorização Sugerida
+### 📋 Priorização (Pré-estabelecida)
 
 #### 🚀 **Fase 1 - Fundação (Sprint 1-2)**
 
