@@ -92,7 +92,7 @@ O **Sistema de Registro de Pessoas** é uma aplicação full stack moderna e esc
 
 ### 🎨 Frontend (React + TypeScript)
 
-- **React 18** - Biblioteca UI moderna
+- **React 19** - Biblioteca UI moderna
 - **TypeScript** - Tipagem estática
 - **Vite** - Build tool e dev server rápido
 - **Material-UI (MUI) v5** - Framework de componentes
