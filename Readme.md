@@ -1331,7 +1331,7 @@ chore(docker): atualizar versão do PostgreSQL
 3. **Crie uma branch** para sua feature: `git checkout -b feature/nova-funcionalidade`
 4. **Commit** suas mudanças: `git commit -m 'feat: adicionar nova funcionalidade'`
 5. **Push** para a branch: `git push origin feature/nova-funcionalidade`
-6. \*\*Abra um Pull Request`
+6. **Abra um Pull Request**
 
 ### 📋 Checklist para PRs
 
