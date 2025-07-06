@@ -1408,15 +1408,15 @@ SOFTWARE.
 
 ### 📧 Contato
 
-- **Email**: suporte@personreg.com
-- **Issues**: [GitHub Issues](https://github.com/your-repo/issues)
-- **Documentação**: [Wiki do Projeto](https://github.com/your-repo/wiki)
+- **Email**: jotaengpuc@gmail.com
+- **Issues**: [GitHub Issues](https://github.com/your-repo/issues) _(Não implementado ainda)_
+- **Documentação**: [Wiki do Projeto](https://github.com/your-repo/wiki) _(Não implementado ainda)_
 
 ### 🔗 Links Úteis
 
-- **Demo Online**: [https://personreg-demo.com](https://personreg-demo.com)
-- **Documentação da API**: [https://api.personreg.com/swagger-ui.html](https://api.personreg.com/swagger-ui.html)
-- **Guias de Desenvolvimento**: [https://docs.personreg.com](https://docs.personreg.com)
+- **Demo Online**: [https://personreg-demo.com](https://personreg-demo.com) _(Não implementado ainda)_
+- **Documentação da API**: [https://api.personreg.com/swagger-ui.html](https://api.personreg.com/swagger-ui.html) _(Não implementado ainda)_
+- **Guias de Desenvolvimento**: [https://docs.personreg.com](https://docs.personreg.com) _(Não implementado ainda)_
 
 ---
 
