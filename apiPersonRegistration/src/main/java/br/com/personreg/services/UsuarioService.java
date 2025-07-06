@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import br.com.personreg.components.JwtTokenComponent;
 import br.com.personreg.components.RabbitMQProducerComponent;
 import br.com.personreg.components.SHA256Component;
+import br.com.personreg.dtos.AtualizarSenhaRequest;
+import br.com.personreg.dtos.AtualizarSenhaResponse;
 import br.com.personreg.dtos.AutenticarUsuarioRequest;
 import br.com.personreg.dtos.AutenticarUsuarioResponse;
 import br.com.personreg.dtos.CriarPerfilResponse;
@@ -153,9 +155,9 @@ public class UsuarioService {
 		// Usuario usuarioCheck = usuarioRepository.findByEmail(email);
 
 		// verificando se o usuário não foi encontrado
-		//if (usuarioCheck == null) {
-		//	throw new AcessoNegadoException();
-		//}
+		// if (usuarioCheck == null) {
+		// throw new AcessoNegadoException();
+		// }
 
 		List<Usuario> usuarios = usuarioRepository.findAll();
 		List<ObterDadosUsuarioResponse> responses = new ArrayList<>();
@@ -185,5 +187,47 @@ public class UsuarioService {
 
 		// Deleta o usuário do banco de dados
 		usuarioRepository.delete(usuario);
+	}
+
+	/*
+	 * Método para atualizar a senha de um usuário
+	 */
+	public void atualizarSenha(UUID id, String novaSenha) throws Exception {
+		// Busca o usuário pelo ID
+		Usuario usuario = usuarioRepository.findById(id)
+				.orElseThrow(() -> new Exception("Usuário não encontrado"));
+
+		// Atualiza a senha do usuário (com hash)
+		usuario.setSenha(sha256Component.hash(novaSenha));
+
+		// Salva as alterações no banco de dados
+		usuarioRepository.save(usuario);
+	}
+
+	/*
+	 * Método para atualizar a senha de um usuário através do email
+	 */
+	public AtualizarSenhaResponse atualizarSenha(AtualizarSenhaRequest request) throws Exception {
+		// Busca o usuário pelo email
+		Usuario usuario = usuarioRepository.findByEmail(request.getEmail());
+		
+		// Verifica se o usuário foi encontrado
+		if (usuario == null) {
+			throw new Exception("Usuário não encontrado com o email informado");
+		}
+
+		// Atualiza a senha do usuário (com hash)
+		usuario.setSenha(sha256Component.hash(request.getSenha()));
+
+		// Salva as alterações no banco de dados
+		usuarioRepository.save(usuario);
+
+		// Prepara a resposta
+		AtualizarSenhaResponse response = new AtualizarSenhaResponse();
+		response.setId(usuario.getId());
+		response.setEmail(usuario.getEmail());
+		response.setDataHoraAtualizacao(new Date());
+
+		return response;
 	}
 }

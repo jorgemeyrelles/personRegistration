@@ -4,13 +4,15 @@ import type {
   Usuario,
   UsuarioAutenticacao,
   UsuarioResponse,
+  AutenticarUsuarioResponse,
+  AtualizarSenhaRequest,
+  AtualizarSenhaResponse,
 } from "../../types/usuario";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
 
 if (import.meta.env.DEV) {
-  console.log("🌐 API Base URL:", API_BASE_URL);
 }
 
 // Serviço para criar usuário
@@ -40,7 +42,7 @@ export const criarUsuario = async (
 // Serviço para autenticar usuário
 export const autenticarUsuario = async (
   credenciais: UsuarioAutenticacao
-): Promise<UsuarioResponse> => {
+): Promise<AutenticarUsuarioResponse> => {
   try {
     const response = await fetch(`${API_BASE_URL}/api/usuario/autenticar`, {
       method: "POST",
@@ -152,6 +154,33 @@ export const deletarUsuario = async (
   }
 };
 
+// Serviço para atualizar senha do usuário
+export const atualizarSenha = async (
+  dadosAtualizacao: AtualizarSenhaRequest
+): Promise<AtualizarSenhaResponse> => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/usuario/atualizar-senha`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dadosAtualizacao),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Erro ao atualizar senha: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Erro ao atualizar senha:", error);
+    throw error;
+  }
+};
+
 // Exportação padrão com todos os serviços
 const usuarioService = {
   criarUsuario,
@@ -159,6 +188,7 @@ const usuarioService = {
   obterDadosUsuario,
   buscarTodosUsuarios,
   deletarUsuario,
+  atualizarSenha,
 };
 
 export default usuarioService;

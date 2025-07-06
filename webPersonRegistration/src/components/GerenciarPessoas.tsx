@@ -33,8 +33,11 @@ import CriarRegistroPessoaModal from "../components/CriarRegistroPessoaModal";
 import DeletarRegistroPessoaModal from "../components/DeletarRegistroPessoaModal";
 import registroPessoaService from "../service/registroPessoas";
 import type { RegistroPessoaResponse } from "../types/registroPessoasTypes";
+import { useAuth } from "../hooks/useAuth";
 
 const GerenciarPessoas: React.FC = () => {
+  const { usuario } = useAuth(); // Hook para obter dados do usuário logado
+
   const [pessoas, setPessoas] = useState<RegistroPessoaResponse[]>([]);
   const [pessoasFiltradas, setPessoasFiltradas] = useState<
     RegistroPessoaResponse[]
@@ -58,8 +61,15 @@ const GerenciarPessoas: React.FC = () => {
     setLoading(true);
     setError("");
     try {
-      const listaPessoas =
+      let listaPessoas =
         await registroPessoaService.buscarTodosRegistrosPessoas();
+
+      if (usuario && usuario.nomePerfil !== "ADMIN") {
+        listaPessoas = listaPessoas.filter((pessoa) => {
+          const id = pessoa.usuarioId || pessoa?.usuario?.id;
+          return id === usuario.id;
+        });
+      }
       setPessoas(listaPessoas);
       setPessoasFiltradas(listaPessoas);
     } catch (error: any) {
@@ -73,7 +83,6 @@ const GerenciarPessoas: React.FC = () => {
   // Aplicar filtros
   const aplicarFiltros = () => {
     let resultado = [...pessoas];
-
     // Filtrar por nome
     if (filtroNome.trim()) {
       resultado = resultado.filter((pessoa) =>
@@ -102,7 +111,7 @@ const GerenciarPessoas: React.FC = () => {
     return estados;
   };
 
-  // Aplicar filtros quando os valores mudarem
+  // Aplicar filtros quando os valores mudarem ou quando o usuário mudar
   useEffect(() => {
     aplicarFiltros();
   }, [filtroNome, filtroEstado, pessoas]);
@@ -110,7 +119,7 @@ const GerenciarPessoas: React.FC = () => {
   // Carregar dados na inicialização
   useEffect(() => {
     carregarPessoas();
-  }, []);
+  }, [usuario]);
 
   // Funções do modal de criar
   const handleOpenCriarModal = () => {
@@ -122,7 +131,6 @@ const GerenciarPessoas: React.FC = () => {
   };
 
   const handleCriarSuccess = (novaPessoa: RegistroPessoaResponse) => {
-    console.log("Nova pessoa criada:", novaPessoa);
     // Adicionar à lista local
     setPessoas((prev) => [...prev, novaPessoa]);
     // A lista filtrada será atualizada automaticamente pelo useEffect
@@ -140,7 +148,6 @@ const GerenciarPessoas: React.FC = () => {
   };
 
   const handleEditarSuccess = (pessoaAtualizada: RegistroPessoaResponse) => {
-    console.log("Pessoa atualizada:", pessoaAtualizada);
     // Atualizar na lista local
     setPessoas((prev) =>
       prev.map((p) => (p.id === pessoaAtualizada.id ? pessoaAtualizada : p))
@@ -160,7 +167,6 @@ const GerenciarPessoas: React.FC = () => {
   };
 
   const handleDeletarSuccess = () => {
-    console.log("Pessoa deletada com sucesso!");
     // Remover da lista local
     if (pessoaSelecionada) {
       setPessoas((prev) => prev.filter((p) => p.id !== pessoaSelecionada.id));
@@ -269,6 +275,44 @@ const GerenciarPessoas: React.FC = () => {
               Nova Pessoa
             </Button>
           </Stack>
+        </Stack>
+      </Box>
+
+      {/* Indicadores de filtro */}
+      <Box sx={{ px: 3, pb: 2 }}>
+        <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap">
+          <Typography variant="body2" color="text.secondary">
+            Exibindo {pessoasFiltradas.length} de {pessoas.length} registro(s)
+          </Typography>
+
+          {usuario && usuario.nomePerfil !== "ADMIN" && (
+            <Chip
+              label="Apenas seus registros"
+              size="small"
+              color="primary"
+              variant="outlined"
+            />
+          )}
+
+          {filtroNome && (
+            <Chip
+              label={`Nome: ${filtroNome}`}
+              size="small"
+              color="secondary"
+              variant="outlined"
+              onDelete={() => setFiltroNome("")}
+            />
+          )}
+
+          {filtroEstado && (
+            <Chip
+              label={`Estado: ${filtroEstado}`}
+              size="small"
+              color="secondary"
+              variant="outlined"
+              onDelete={() => setFiltroEstado("")}
+            />
+          )}
         </Stack>
       </Box>
 

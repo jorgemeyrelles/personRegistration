@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 import registroPessoaService from "../service/registroPessoas";
+import { useAuth } from "../hooks/useAuth";
 import type {
   RegistroPessoaFormData,
   RegistroPessoaRequest,
@@ -38,7 +39,11 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
   usuarioId = "",
   pessoaParaEditar = null,
 }) => {
+  const { usuario } = useAuth(); // Hook para obter dados do usuário logado
   const isEditing = !!pessoaParaEditar;
+
+  // Usar o ID do usuário logado ou o prop usuarioId como fallback
+  const userIdToUse = usuario?.id || usuarioId;
   const [formData, setFormData] = useState<RegistroPessoaFormData>({
     nome: "",
     telefone: "",
@@ -51,7 +56,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
     nomeEstado: "",
     latitude: "",
     longitude: "",
-    usuarioId: usuarioId,
+    usuarioId: userIdToUse?.toString() || "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -74,7 +79,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
         nomeEstado: pessoaParaEditar.nomeEstado || "",
         latitude: pessoaParaEditar.latitude?.toString() || "",
         longitude: pessoaParaEditar.longitude?.toString() || "",
-        usuarioId: usuarioId,
+        usuarioId: userIdToUse?.toString() || "",
       });
     } else {
       // Limpar formulário quando for criação
@@ -90,10 +95,10 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
         nomeEstado: "",
         latitude: "",
         longitude: "",
-        usuarioId: usuarioId,
+        usuarioId: userIdToUse?.toString() || "",
       });
     }
-  }, [isEditing, pessoaParaEditar, usuarioId]);
+  }, [isEditing, pessoaParaEditar, userIdToUse]);
 
   const handleInputChange =
     (field: keyof RegistroPessoaFormData) =>
@@ -297,7 +302,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
         bairro: formData.bairro,
         nomeMunicipio: formData.nomeMunicipio,
         nomeEstado: formData.nomeEstado,
-        usuarioId: "2d0a8c61-f487-49af-aee4-5a67b5f0d102", // Usar um ID padrão se necessário
+        usuarioId: userIdToUse?.toString() || "", // Usar ID do usuário logado
         // Campos opcionais - apenas incluir se tiverem valor
         ...(formData.numero &&
           formData.numero.trim() && { numero: formData.numero }),
@@ -308,7 +313,6 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
         ...(formData.longitude &&
           formData.longitude.trim() && { longitude: formData.longitude }),
       };
-      console.log(dadosParaEnvio);
 
       let pessoaResult: RegistroPessoaResponse;
 
@@ -365,7 +369,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
       nomeEstado: "",
       latitude: "",
       longitude: "",
-      usuarioId: usuarioId,
+      usuarioId: userIdToUse?.toString() || "",
     });
     setError("");
     setSuccess("");
@@ -414,12 +418,16 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
           )}
 
           <Stack spacing={2}>
-            {/* Primeira linha: Nome e CPF */}
+            {/* Primeira linha: Nome, CPF e Telefone */}
             <Box
               sx={{
-                display: "flex",
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr", // Mobile: 1 coluna
+                  sm: "1fr 1fr", // Tablet: 2 colunas
+                  md: "1fr 1fr 1fr", // Desktop: 3 colunas
+                },
                 gap: 2,
-                flexDirection: { xs: "column", sm: "row" },
               }}
             >
               <TextField
@@ -429,6 +437,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 onChange={handleInputChange("nome")}
                 disabled={loading}
                 variant="outlined"
+                size="small"
               />
               <TextField
                 fullWidth
@@ -439,17 +448,8 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 variant="outlined"
                 placeholder="000.000.000-00"
                 inputProps={{ maxLength: 14 }}
+                size="small"
               />
-            </Box>
-
-            {/* Segunda linha: Telefone e CEP */}
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-                flexDirection: { xs: "column", sm: "row" },
-              }}
-            >
               <TextField
                 fullWidth
                 label="Telefone *"
@@ -459,7 +459,22 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 variant="outlined"
                 placeholder="(11) 99999-9999"
                 inputProps={{ maxLength: 15 }}
+                size="small"
               />
+            </Box>
+
+            {/* Segunda linha: CEP, Número e Complemento */}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr", // Mobile: 1 coluna
+                  sm: "1fr 1fr", // Tablet: 2 colunas
+                  md: "1fr 1fr 1fr", // Desktop: 3 colunas
+                },
+                gap: 2,
+              }}
+            >
               <TextField
                 fullWidth
                 label="CEP *"
@@ -469,27 +484,18 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 variant="outlined"
                 placeholder="00000-000"
                 inputProps={{ maxLength: 9 }}
+                size="small"
                 InputProps={{
                   endAdornment: cepLoading ? (
-                    <CircularProgress size={20} />
+                    <CircularProgress size={16} />
                   ) : null,
                 }}
                 helperText={
                   cepLoading
-                    ? "Buscando endereço..."
-                    : "Digite o CEP para buscar o endereço automaticamente"
+                    ? "Buscando..."
+                    : "Digite para buscar automaticamente"
                 }
               />
-            </Box>
-
-            {/* Terceira linha: Número e Complemento */}
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-                flexDirection: { xs: "column", sm: "row" },
-              }}
-            >
               <TextField
                 fullWidth
                 label="Número"
@@ -497,6 +503,7 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 onChange={handleInputChange("numero")}
                 disabled={loading}
                 variant="outlined"
+                size="small"
               />
               <TextField
                 fullWidth
@@ -505,15 +512,20 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 onChange={handleInputChange("complemento")}
                 disabled={loading}
                 variant="outlined"
+                size="small"
               />
             </Box>
 
-            {/* Quarta linha: Bairro e Município */}
+            {/* Terceira linha: Bairro, Município e Estado */}
             <Box
               sx={{
-                display: "flex",
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr", // Mobile: 1 coluna
+                  sm: "1fr 1fr", // Tablet: 2 colunas
+                  md: "1fr 1fr 1fr", // Desktop: 3 colunas
+                },
                 gap: 2,
-                flexDirection: { xs: "column", sm: "row" },
               }}
             >
               <TextField
@@ -521,61 +533,32 @@ const CriarRegistroPessoaModal: React.FC<CriarRegistroPessoaModalProps> = ({
                 label="Bairro *"
                 value={formData.bairro}
                 onChange={handleInputChange("bairro")}
-                disabled={true} // Sempre desabilitado - preenchido automaticamente via CEP
+                disabled={true}
                 variant="outlined"
-                helperText="Preenchido automaticamente via CEP"
+                helperText="Preenchido via CEP"
+                size="small"
               />
               <TextField
                 fullWidth
                 label="Município *"
                 value={formData.nomeMunicipio}
                 onChange={handleInputChange("nomeMunicipio")}
-                disabled={true} // Sempre desabilitado - preenchido automaticamente via CEP
+                disabled={true}
                 variant="outlined"
-                helperText="Preenchido automaticamente via CEP"
+                helperText="Preenchido via CEP"
+                size="small"
               />
-            </Box>
-
-            {/* Quinta linha: Estado e Latitude */}
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-                flexDirection: { xs: "column", sm: "row" },
-              }}
-            >
               <TextField
                 fullWidth
                 label="Estado *"
                 value={formData.nomeEstado}
                 onChange={handleInputChange("nomeEstado")}
-                disabled={true} // Sempre desabilitado - preenchido automaticamente via CEP
+                disabled={true}
                 variant="outlined"
-                helperText="Preenchido automaticamente via CEP"
+                helperText="Preenchido via CEP"
+                size="small"
               />
-              {/* <TextField
-                fullWidth
-                label="Latitude"
-                value={formData.latitude}
-                onChange={handleInputChange("latitude")}
-                disabled={true} // Desabilitado - obtido automaticamente
-                variant="outlined"
-                placeholder="-23.5505"
-                helperText="Obtido automaticamente via geolocalização"
-              /> */}
             </Box>
-
-            {/* Sexta linha: Longitude */}
-            {/* <TextField
-              fullWidth
-              label="Longitude"
-              value={formData.longitude}
-              onChange={handleInputChange("longitude")}
-              disabled={true} // Desabilitado - obtido automaticamente
-              variant="outlined"
-              placeholder="-46.6333"
-              helperText="Obtido automaticamente via geolocalização"
-            /> */}
           </Stack>
         </Box>
       </DialogContent>

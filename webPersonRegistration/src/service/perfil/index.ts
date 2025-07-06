@@ -10,7 +10,6 @@ const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
 
 if (import.meta.env.DEV) {
-  console.log("🌐 API Base URL:", API_BASE_URL);
 }
 
 // Serviço para criar perfil

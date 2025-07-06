@@ -1,8 +1,8 @@
 import React from "react";
-import { Container } from "@mui/material";
+import { Container, ContainerProps } from "@mui/material";
 import { colors } from "../utils/colors";
 
-interface BodyProps {
+interface BodyProps extends Omit<ContainerProps, "children"> {
   children: React.ReactNode;
 }
 

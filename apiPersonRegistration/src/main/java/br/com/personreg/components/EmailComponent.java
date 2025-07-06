@@ -41,23 +41,25 @@ public class EmailComponent {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
 
-		helper.setFrom(username); // remetente do email
-		helper.setTo(to); // destinatário do email
-		helper.setSubject(subject); // assunto do email
-		helper.setText(body, true); // conteúdo do email
+		helper.setFrom(username);
+		helper.setTo(to);
+		helper.setSubject(subject);
+		helper.setText(body, true);
 
 		// enviando o email
 		javaMailSender.send(mimeMessage);
 	}
 
-	public void sendHtmlMail(String to, String subject, String htmlBody) throws Exception {
+	public void sendHtmlMail(String to, String subject, String htmlBody)
+			throws Exception {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+		MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true,
+				"UTF-8");
 
 		helper.setFrom(username);
 		helper.setTo(to);
 		helper.setSubject(subject);
-		helper.setText(htmlBody, true); // true indica que é HTML
+		helper.setText(htmlBody, true);
 
 		javaMailSender.send(mimeMessage);
 	}

@@ -6,12 +6,15 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.personreg.dtos.AtualizarSenhaRequest;
+import br.com.personreg.dtos.AtualizarSenhaResponse;
 import br.com.personreg.dtos.AutenticarUsuarioRequest;
 import br.com.personreg.dtos.AutenticarUsuarioResponse;
 import br.com.personreg.dtos.CriarUsuarioRequest;
@@ -66,16 +69,28 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/buscar-todos")
-	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios() throws Exception {
+	public List<ObterDadosUsuarioResponse> buscarTodosUsuarios()
+			throws Exception {
 		// Capturar / extrair o TOKEN JWT enviado na requisição
 		// HttpServletRequest request
-		// String token = request.getHeader("Authorization").replace("Bearer", "")
-		// 		.trim();
+		// String token = request.getHeader("Authorization").replace("Bearer",
+		// "")
+		// .trim();
 		return usuarioService.buscarTodosUsuarios();
 	}
 
 	@DeleteMapping("/deletar/{id}")
 	public void deletarUsuario(@PathVariable UUID id) throws Exception {
 		usuarioService.deletarUsuario(id);
+	}
+
+	/*
+	 * HTTP PATCH /api/usuario/atualizar-senha
+	 * Serviço para atualização de senha de usuário
+	 */
+	@PatchMapping("atualizar-senha")
+	public AtualizarSenhaResponse atualizarSenha(
+			@RequestBody @Valid AtualizarSenhaRequest request) throws Exception {
+		return usuarioService.atualizarSenha(request);
 	}
 }

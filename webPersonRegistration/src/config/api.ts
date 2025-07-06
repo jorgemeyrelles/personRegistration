@@ -11,9 +11,4 @@ export const API_CONFIG = {
   },
 };
 
-// Configurações condicionais baseadas no ambiente
-if (import.meta.env.DEV) {
-  console.log("🌐 API Configuration:", API_CONFIG);
-}
-
 export default API_CONFIG;

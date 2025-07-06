@@ -3,19 +3,71 @@ import { BrowserRouter, Routes as RouterRoutes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Logs from "../pages/Logs";
 import NotFound from "../pages/NotFound";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import RecoverPassword from "../pages/RecoverPassword";
+import { ProtectedRoute, PublicRoute } from "../components/RouteGuards";
 
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <RouterRoutes>
-        {/* Rota principal - Home */}
-        <Route path="/" element={<Home />} />
+        {/* Rotas públicas - redirecionam para / se já autenticado */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
 
-        {/* Rota de Logs */}
-        <Route path="/logs" element={<Logs />} />
+        <Route
+          path="/registrar"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
 
-        {/* Rota 404 - Not Found */}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="/recuperar-senha"
+          element={
+            <PublicRoute>
+              <RecoverPassword />
+            </PublicRoute>
+          }
+        />
+
+        {/* Rotas protegidas - redirecionam para /login se não autenticado */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/logs"
+          element={
+            <ProtectedRoute>
+              <Logs />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Rota 404 - protegida também */}
+        <Route
+          path="*"
+          element={
+            <ProtectedRoute>
+              <NotFound />
+            </ProtectedRoute>
+          }
+        />
       </RouterRoutes>
     </BrowserRouter>
   );

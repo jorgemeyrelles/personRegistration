@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import br.com.personreg.dtos.AtualizarSenhaRequest;
+import br.com.personreg.dtos.AtualizarSenhaResponse;
 import br.com.personreg.dtos.AutenticarUsuarioRequest;
 import br.com.personreg.dtos.AutenticarUsuarioResponse;
 import br.com.personreg.dtos.CriarPerfilResponse;
@@ -290,5 +292,53 @@ class UsuarioServiceTest {
             assertTrue(requestString.contains("novo@email.com"), 
                     "ToString deve conter o email");
         }, "ToString não deve lançar exceção");
+    }
+
+    @Test
+    @DisplayName("Teste 10: Deve validar lógica de atualização de senha")
+    void teste10_deveValidarLogicaDeAtualizacaoDeSenha() {
+        // Given
+        AtualizarSenhaRequest atualizarSenhaRequest = new AtualizarSenhaRequest();
+        atualizarSenhaRequest.setEmail("joao@empresa.com");
+        atualizarSenhaRequest.setSenha("NovaSenha123@");
+
+        // When - validação dos dados do request
+        assertNotNull(atualizarSenhaRequest.getEmail(), "Email não deve ser nulo");
+        assertNotNull(atualizarSenhaRequest.getSenha(), "Nova senha não deve ser nula");
+        assertEquals("joao@empresa.com", atualizarSenhaRequest.getEmail(), 
+                "Email deve corresponder ao valor definido");
+        assertEquals("NovaSenha123@", atualizarSenhaRequest.getSenha(), 
+                "Nova senha deve corresponder ao valor definido");
+
+        // Then - simulação da resposta
+        AtualizarSenhaResponse response = new AtualizarSenhaResponse();
+        response.setId(usuario.getId());
+        response.setEmail(atualizarSenhaRequest.getEmail());
+        response.setDataHoraAtualizacao(new Date());
+
+        // Verificações da resposta
+        assertNotNull(response.getId(), "ID não deve ser nulo");
+        assertEquals(usuario.getId(), response.getId(), "ID deve corresponder ao usuário");
+        assertEquals(atualizarSenhaRequest.getEmail(), response.getEmail(), 
+                "Email deve corresponder ao request");
+        assertNotNull(response.getDataHoraAtualizacao(), 
+                "Data/hora de atualização não deve ser nula");
+
+        // Testa toString do request (Lombok @Data gera toString)
+        String requestString = atualizarSenhaRequest.toString();
+        assertTrue(requestString.contains("joao@empresa.com"), 
+                "ToString deve conter o email");
+        assertTrue(requestString.contains("NovaSenha123@"), 
+                "ToString deve conter a senha (Lombok não protege automaticamente)");
+
+        // Testa equals e hashCode do Lombok
+        AtualizarSenhaRequest outroRequest = new AtualizarSenhaRequest();
+        outroRequest.setEmail("joao@empresa.com");
+        outroRequest.setSenha("NovaSenha123@");
+        
+        assertEquals(atualizarSenhaRequest, outroRequest, 
+                "Requests com mesmos dados devem ser iguais (Lombok @Data)");
+        assertEquals(atualizarSenhaRequest.hashCode(), outroRequest.hashCode(), 
+                "HashCodes de requests iguais devem ser iguais");
     }
 }

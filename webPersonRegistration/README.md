@@ -30,6 +30,14 @@ Sistema web moderno para gerenciamento de registros de pessoas, desenvolvido com
 - ✅ **Categorização Visual**: Chips com ícones para diferentes tipos de log
 - ✅ **Busca e Filtros**: Sistema de filtros integrado ao DataGrid
 
+### 🔐 Sistema de Autenticação
+
+- ✅ **Cookies Seguros**: Armazenamento seguro com proteções CSRF e XSS
+- ✅ **Hook Personalizado**: `useAuth` para gerenciamento reativo de estado
+- ✅ **Login Responsivo**: Interface Material-UI com validação
+- ✅ **Segurança Avançada**: SameSite, Secure, expiração automática
+- ✅ **Migração Documentada**: De localStorage para cookies seguros
+
 ### 🎨 Interface do Usuário
 
 - ✅ **Design System**: Cores e componentes consistentes
@@ -397,6 +405,57 @@ GET    https://viacep.com.br/ws/{cep}/json/
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
+## 📚 Documentação Adicional
+
+### 🔐 Sistema de Autenticação
+
+- **[Documentação Completa](docs/AUTENTICACAO_COOKIES.md)** - Guia detalhado sobre cookies seguros
+- **[Exemplos Práticos](src/examples/README.md)** - Implementações e comparações
+- **[Hook useAuth](src/hooks/useAuth.ts)** - Hook personalizado para autenticação
+- **[Utilitários de Cookies](src/utils/cookies.ts)** - Funções de baixo nível
+
+### 🧪 Exemplos de Uso
+
+- **`ExemploUsoLogin.tsx`** - Migração de localStorage para cookies
+- **`ExemploUseAuth.tsx`** - Hook completo com dashboard
+- **`ComparacaoArmazenamento.tsx`** - Comparação interativa de tecnologias
+
+### 🔧 Migração
+
+Se você está usando localStorage, veja o guia de migração em:
+
+- `src/examples/ExemploUsoLogin.tsx` (antes e depois)
+- `docs/AUTENTICACAO_COOKIES.md` (documentação completa)
+
 ---
 
 **Desenvolvido com ❤️ usando React + TypeScript + Material-UI**
+
+### Autenticação com Cookies
+
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│  Login Form │───▶│  useAuth    │───▶│   Cookies   │
+│  (Component)│    │   Hook      │    │   Seguros   │
+└─────────────┘    └─────────────┘    └─────────────┘
+       ▲                   │                   │
+       │                   ▼                   │
+       │            ┌─────────────┐            │
+       └────────────│   Estado    │◀───────────┘
+                    │  Reativo    │
+                    └─────────────┘
+```
+
+**Funcionalidades de Segurança:**
+
+- 🔒 **SameSite=Strict**: Proteção contra CSRF
+- 🛡️ **Secure Flag**: HTTPS obrigatório em produção
+- ⏰ **Expiração Automática**: Configurável (padrão: 24h)
+- 🧹 **Limpeza Automática**: Remove cookies expirados
+- 📱 **Desenvolvimento**: Funciona em localhost HTTP
+
+**Hook useAuth:**
+
+```tsx
+const { isAuthenticated, usuario, token, login, logout } = useAuth();
+```
