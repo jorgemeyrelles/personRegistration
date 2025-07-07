@@ -1279,7 +1279,7 @@ chore(docker): atualizar versão do PostgreSQL
 - 🌐 **Azure VM Deploy**: Deploy automatizado em máquinas virtuais Azure
 - 📦 **Staging Environment**: Ambiente de homologação automático _(Talvez: Em avaliação)_
 
-#### 🔍 Monitoramento e Observabilidade _(sugestões)_
+#### 🔍 Monitoramento e Observabilidade _(Talvez: Em avaliação)_
 
 - 📊 **Application Insights**: Monitoramento de performance e erros
 - 📝 **Centralized Logging**: ELK Stack ou Azure Monitor
