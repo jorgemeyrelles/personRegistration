@@ -4,11 +4,13 @@ import { colors } from "../utils/colors";
 
 interface BodyProps extends Omit<ContainerProps, "children"> {
   children: React.ReactNode;
+  props?: any; // Permite passar propriedades adicionais, se necessário
 }
 
-const Body: React.FC<BodyProps> = ({ children }) => {
+const Body: React.FC<BodyProps> = ({ children, props }) => {
   return (
     <Container
+      {...props} // Permite passar propriedades adicionais para o Container
       component="main"
       maxWidth={false}
       sx={{

@@ -122,19 +122,21 @@ const NavBar: React.FC = () => {
         {/* Botões à direita */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           {/* Botão de Logs */}
-          <IconButton
-            size="large"
-            onClick={handleLogsClick}
-            sx={{
-              color: colors.text.onPrimary,
-              "&:hover": {
-                backgroundColor: withOpacity(colors.primary.light, 0.1),
-              },
-            }}
-            aria-label="logs"
-          >
-            <TimelineIcon />
-          </IconButton>
+          {usuario?.nomePerfil === "ADMIN" && (
+            <IconButton
+              size="large"
+              onClick={handleLogsClick}
+              sx={{
+                color: colors.text.onPrimary,
+                "&:hover": {
+                  backgroundColor: withOpacity(colors.primary.light, 0.1),
+                },
+              }}
+              aria-label="logs"
+            >
+              <TimelineIcon />
+            </IconButton>
+          )}
 
           {/* Botão de configurações */}
           <IconButton
@@ -263,34 +265,32 @@ const NavBar: React.FC = () => {
             <Divider sx={{ borderColor: colors.grey[200] }} />
 
             {/* Botão de Logout */}
-            {usuario?.nomePerfil === "ADMIN" && (
-              <MenuItem
-                onClick={handleLogout}
-                sx={{
-                  py: 1,
-                  "&:hover": {
-                    backgroundColor: withOpacity(colors.error.main, 0.08),
-                  },
-                }}
-              >
-                <ListItemIcon>
-                  <LogoutIcon
-                    sx={{
-                      fontSize: 20,
-                      color: colors.error.main,
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Sair"
-                  primaryTypographyProps={{
-                    fontSize: "0.9rem",
+            <MenuItem
+              onClick={handleLogout}
+              sx={{
+                py: 1,
+                "&:hover": {
+                  backgroundColor: withOpacity(colors.error.main, 0.08),
+                },
+              }}
+            >
+              <ListItemIcon>
+                <LogoutIcon
+                  sx={{
+                    fontSize: 20,
                     color: colors.error.main,
-                    fontWeight: 500,
                   }}
                 />
-              </MenuItem>
-            )}
+              </ListItemIcon>
+              <ListItemText
+                primary="Sair"
+                primaryTypographyProps={{
+                  fontSize: "0.9rem",
+                  color: colors.error.main,
+                  fontWeight: 500,
+                }}
+              />
+            </MenuItem>
           </Menu>
         </Box>
       </Toolbar>

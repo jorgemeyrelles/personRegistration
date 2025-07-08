@@ -7,7 +7,6 @@ import GerenciarLogin from "../components/GerenciarLogin";
 const Login: React.FC = () => {
   return (
     <Box
-      style={{ justifyContent: "flex-startcenter" }}
       sx={{
         width: "100vw",
         height: "100vh",
@@ -18,7 +17,7 @@ const Login: React.FC = () => {
       }}
     >
       {/* Body principal com conteúdo */}
-      <Body>
+      <Body style={{ justifyContent: "flex-startcenter" }}>
         <GerenciarLogin />
       </Body>
 

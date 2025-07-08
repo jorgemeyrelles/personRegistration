@@ -82,14 +82,14 @@ services:
       - projeto-person-registration
 
   web-person-registration:
-    image: jorgemeyrelles/web-person-registration:latest
-    # build:
-    #   context: ./webPersonRegistration
-    #   dockerfile: Dockerfile
-    #   args:
-    #     VITE_API_BASE_URL: "http://localhost:8081"
-    #     VITE_NODE_ENV: "production"
-    #     NODE_ENV: "production"
+    # image: jorgemeyrelles/web-person-registration:latest
+    build:
+      context: ./webPersonRegistration
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: "http://localhost:8081"
+        VITE_NODE_ENV: "production"
+        NODE_ENV: "production"
     container_name: web_person_registration
     restart: always
     ports:

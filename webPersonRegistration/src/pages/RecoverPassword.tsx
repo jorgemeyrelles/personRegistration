@@ -7,7 +7,6 @@ import GerenciarNovaSenha from "../components/GerenciarNovaSenha";
 const RecoverPassword: React.FC = () => {
   return (
     <Box
-      style={{ justifyContent: "flex-startcenter" }}
       sx={{
         width: "100vw",
         height: "100vh",
@@ -18,7 +17,7 @@ const RecoverPassword: React.FC = () => {
       }}
     >
       {/* Body principal com conteúdo */}
-      <Body>
+      <Body style={{ justifyContent: "flex-startcenter" }}>
         <GerenciarNovaSenha />
       </Body>
 

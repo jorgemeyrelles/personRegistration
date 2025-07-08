@@ -17,7 +17,7 @@ const Register: React.FC = () => {
       }}
     >
       {/* Body principal com conteúdo */}
-      <Body>
+      <Body style={{ justifyContent: "flex-startcenter" }}>
         <GerenciarRegistro />
       </Body>
 
