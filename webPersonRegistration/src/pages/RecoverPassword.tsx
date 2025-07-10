@@ -22,7 +22,7 @@ const RecoverPassword: React.FC = () => {
       </Body>
 
       {/* Footer sempre no final */}
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };

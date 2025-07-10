@@ -17,12 +17,12 @@ const Login: React.FC = () => {
       }}
     >
       {/* Body principal com conteúdo */}
-      <Body style={{ justifyContent: "flex-startcenter" }}>
+      <Body>
         <GerenciarLogin />
       </Body>
 
       {/* Footer sempre no final */}
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 };

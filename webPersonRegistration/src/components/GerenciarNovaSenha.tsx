@@ -179,6 +179,8 @@ const GerenciarNovaSenha: React.FC = () => {
         throw new Error("Email do usuário não encontrado");
       }
 
+      console.log(usuarioEncontrado, novaSenha);
+
       // Chamar o serviço real de atualização de senha
       const resultado = await atualizarSenha({
         email: usuarioEncontrado.email,

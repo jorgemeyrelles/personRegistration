@@ -10,7 +10,7 @@ interface BodyProps extends Omit<ContainerProps, "children"> {
 const Body: React.FC<BodyProps> = ({ children, props }) => {
   return (
     <Container
-      {...props} // Permite passar propriedades adicionais para o Container
+      {...props}
       component="main"
       maxWidth={false}
       sx={{
