@@ -81,32 +81,32 @@ services:
     networks:
       - projeto-person-registration
 
-# web-person-registration:
-#   image: jorgemeyrelles/web-person-registration:latest
-#   # build:
-#   #   context: ./webPersonRegistration
-#   #   dockerfile: Dockerfile
-#   #   args:
-#   #     VITE_API_BASE_URL: "http://localhost:8081"
-#   #     VITE_NODE_ENV: "production"
-#   #     NODE_ENV: "production"
-#   container_name: web_person_registration
-#   restart: always
-#   ports:
-#     - "3031:3031"
-#   environment:
-#     - NODE_ENV=production
-#     - PORT=3031
-#   depends_on:
-#     - api_person_registration
-#   networks:
-#     - projeto-person-registration
-#   healthcheck:
-#     test: ["CMD", "curl", "-f", "http://localhost:3031/health"]
-#     interval: 30s
-#     timeout: 10s
-#     retries: 3
-#     start_period: 40s
+web-person-registration:
+  image: jorgemeyrelles/web-person-registration:latest
+  # build:
+  #   context: ./webPersonRegistration
+  #   dockerfile: Dockerfile
+  #   args:
+  #     VITE_API_BASE_URL: "http://localhost:8081"
+  #     VITE_NODE_ENV: "production"
+  #     NODE_ENV: "production"
+  container_name: web_person_registration
+  restart: always
+  ports:
+    - "3031:3031"
+  environment:
+    - NODE_ENV=production
+    - PORT=3031
+  depends_on:
+    - api_person_registration
+  networks:
+    - projeto-person-registration
+  healthcheck:
+    test: ["CMD", "curl", "-f", "http://localhost:3031/health"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 40s
 
 volumes:
   postgres_data:
