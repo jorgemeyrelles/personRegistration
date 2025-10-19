@@ -137,7 +137,8 @@ public class LoadData implements ApplicationRunner {
 		order_cancelled.setId(UUID.randomUUID());
 		order_cancelled.setName("CANCELLED");
 
-		// verificando se os status de ordem de serviço não existem no banco de dados e salvando
+		// verificando se os status de ordem de serviço não existem no banco de dados e
+		// salvando
 		if (serviceOrderStatusRepository.findByName("PENDING") == null)
 			serviceOrderStatusRepository.save(order_pending);
 
@@ -182,7 +183,8 @@ public class LoadData implements ApplicationRunner {
 		movement_used_in_service.setId(UUID.randomUUID());
 		movement_used_in_service.setName("USED_IN_SERVICE");
 
-		// verificando se os tipos de movimentação não existem no banco de dados e salvando
+		// verificando se os tipos de movimentação não existem no banco de dados e
+		// salvando
 		if (consumableMovementTypeRepository.findByName("ADD") == null)
 			consumableMovementTypeRepository.save(movement_add);
 
@@ -234,7 +236,8 @@ public class LoadData implements ApplicationRunner {
 		equipment_out_of_maintenance.setId(UUID.randomUUID());
 		equipment_out_of_maintenance.setName("OUT_OF_MAINTENANCE");
 
-		// verificando se os tipos de movimentação de equipamentos não existem no banco de dados e salvando
+		// verificando se os tipos de movimentação de equipamentos não existem no banco
+		// de dados e salvando
 		if (equipmentMovementTypeRepository.findByName("ADD") == null)
 			equipmentMovementTypeRepository.save(equipment_add);
 

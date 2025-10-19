@@ -1,0 +1,6 @@
+# AWS Deployment - arquivos sensíveis
+aws-deployment/.env
+aws-deployment/.env.production
+aws-deployment/*.pem
+aws-deployment/outputs/
+aws-deployment/backups/
