@@ -10,7 +10,7 @@ import type {
 } from "../../types/usuario";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api";
 
 if (import.meta.env.DEV) {
 }
@@ -20,7 +20,7 @@ export const criarUsuario = async (
   usuario: Usuario
 ): Promise<UsuarioResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/usuario/criar`, {
+    const response = await fetch(`${API_BASE_URL}/usuario/criar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export const autenticarUsuario = async (
   credenciais: UsuarioAutenticacao
 ): Promise<AutenticarUsuarioResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/usuario/autenticar`, {
+    const response = await fetch(`${API_BASE_URL}/usuario/autenticar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export const obterDadosUsuario = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/usuario/obter-dados`, {
+    const response = await fetch(`${API_BASE_URL}/usuario/obter-dados`, {
       method: "GET",
       headers,
     });
@@ -107,7 +107,7 @@ export const buscarTodosUsuarios = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/usuario/buscar-todos`, {
+    const response = await fetch(`${API_BASE_URL}/usuario/buscar-todos`, {
       method: "GET",
       headers,
     });
@@ -138,7 +138,7 @@ export const deletarUsuario = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/usuario/deletar/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/usuario/deletar/${id}`, {
       method: "DELETE",
       headers,
     });
@@ -160,7 +160,7 @@ export const atualizarSenha = async (
 ): Promise<AtualizarSenhaResponse> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/usuario/atualizar-senha`,
+      `${API_BASE_URL}/usuario/atualizar-senha`,
       {
         method: "PATCH",
         headers: {

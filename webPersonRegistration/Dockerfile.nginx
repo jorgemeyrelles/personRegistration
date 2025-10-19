@@ -1,0 +1,46 @@
+# Estágio 1: Build da aplicação
+FROM node:20-alpine AS builder
+
+ARG VITE_API_BASE_URL=/api
+ARG VITE_NODE_ENV=production
+ARG NODE_ENV=production
+
+RUN apk add --no-cache git
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm cache clean --force
+RUN npm install -g typescript@5.8.3
+RUN npm ci --include=dev --legacy-peer-deps
+
+COPY . .
+
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_NODE_ENV=$VITE_NODE_ENV
+ENV NODE_ENV=$NODE_ENV
+
+RUN npm run build
+RUN ls -la /app/dist
+
+# Estágio 2: Produção com Nginx
+FROM nginx:alpine
+
+# Instalar curl para healthcheck
+RUN apk add --no-cache curl
+
+# Copiar build do React
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copiar configuração do Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Verificar arquivos
+RUN ls -la /usr/share/nginx/html && test -f /usr/share/nginx/html/index.html
+
+EXPOSE 3031
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3031/health || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

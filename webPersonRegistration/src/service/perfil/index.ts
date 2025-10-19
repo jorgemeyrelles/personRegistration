@@ -7,7 +7,7 @@ import type {
 } from "../../types/perfil";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://localhost:8081";
+  import.meta.env.VITE_API_BASE_URL || "https://localhost:8081/api";
 
 if (import.meta.env.DEV) {
 }
@@ -27,7 +27,7 @@ export const criarPerfil = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/perfil/criar`, {
+    const response = await fetch(`${API_BASE_URL}/perfil/criar`, {
       method: "POST",
       headers,
       body: JSON.stringify(perfil),
@@ -60,7 +60,7 @@ export const atualizarPerfil = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/perfil/atualizar/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/perfil/atualizar/${id}`, {
       method: "PUT",
       headers,
       body: JSON.stringify(dadosAtualizacao),
@@ -92,13 +92,10 @@ export const obterDadosPerfil = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(
-      `${API_BASE_URL}/api/perfil/obter-dados/${id}`,
-      {
-        method: "GET",
-        headers,
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/perfil/obter-dados/${id}`, {
+      method: "GET",
+      headers,
+    });
 
     if (!response.ok) {
       throw new Error(`Erro ao obter dados do perfil: ${response.statusText}`);
@@ -125,7 +122,7 @@ export const buscarTodosPerfis = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/perfil/buscar-todos`, {
+    const response = await fetch(`${API_BASE_URL}/perfil/buscar-todos`, {
       method: "GET",
       headers,
     });
@@ -156,7 +153,7 @@ export const deletarPerfil = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/perfil/deletar/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/perfil/deletar/${id}`, {
       method: "DELETE",
       headers,
     });

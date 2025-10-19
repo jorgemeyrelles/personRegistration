@@ -9,7 +9,7 @@ import type {
 } from "../../types/registroPessoasTypes";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8081/api";
 
 if (import.meta.env.DEV) {
 }
@@ -29,7 +29,7 @@ export const criarRegistroPessoa = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/registro-pessoa`, {
+    const response = await fetch(`${API_BASE_URL}/registro-pessoa`, {
       method: "POST",
       headers,
       body: JSON.stringify(pessoa),
@@ -63,7 +63,7 @@ export const buscarTodosRegistrosPessoas = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/registro-pessoa`, {
+    const response = await fetch(`${API_BASE_URL}/registro-pessoa`, {
       method: "GET",
       headers,
     });
@@ -92,7 +92,7 @@ export const obterRegistroPessoa = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/registro-pessoa/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/registro-pessoa/${id}`, {
       method: "GET",
       headers,
     });
@@ -122,7 +122,7 @@ export const verificarCPFExiste = async (
     }
 
     const response = await fetch(
-      `${API_BASE_URL}/api/registro-pessoa/existe-cpf/${cpf}`,
+      `${API_BASE_URL}/registro-pessoa/existe-cpf/${cpf}`,
       {
         method: "GET",
         headers,
@@ -154,7 +154,7 @@ export const atualizarRegistroPessoa = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/registro-pessoa/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/registro-pessoa/${id}`, {
       method: "PUT",
       headers,
       body: JSON.stringify(pessoa),
@@ -188,7 +188,7 @@ export const deletarRegistroPessoa = async (
       headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/registro-pessoa/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/registro-pessoa/${id}`, {
       method: "DELETE",
       headers,
     });
